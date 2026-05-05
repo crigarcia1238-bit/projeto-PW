@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTFlix - Administração</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">EST<span>Flix</span> Admin</div>
+        <a href="catalogo.html">Voltar ao Catálogo</a>
+    </nav>
+
+    <div class="admin-content">
+        <h1>Gestão de Conteúdos</h1>
+        <button id="add-movie" class="btn-add">Novo Filme</button>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Género</th>
+                    <th>Ano</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="admin-table-body">
+                <!-- JS preenche aqui -->
+            </tbody>
+        </table>
+    </div>
+    <script src="js/storage.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

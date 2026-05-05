@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTFlix - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Esta div centered-layout é o que garante o centro absoluto -->
+    <div class="centered-layout">
+        
+        <div class="login-container">
+            <div class="logo">EST<span>Flix</span></div>
+            
+            <!-- Estado 1: Login -->
+            <div id="login-box" class="auth-box">
+                <h1>Entrar</h1>
+                <form id="form-login">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-pass" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Entrar</button>
+                </form>
+            </div>
+
+            <!-- Estado 2: Perfis -->
+            <div id="perfil-box" class="auth-box hidden">
+                <h1>Escolha o seu Perfil</h1>
+                <div id="perfis-grid" class="profiles-grid"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
