@@ -2,35 +2,52 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESTFlix - Administração</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="admin-body">
     <nav class="navbar">
         <div class="logo">EST<span>Flix</span> Admin</div>
-        <a href="catalogo.html">Voltar ao Catálogo</a>
+        <ul class="nav-links">
+            <li><a href="catalogo.html">Voltar ao Catálogo</a></li>
+        </ul>
     </nav>
 
-    <div class="admin-content">
-        <h1>Gestão de Conteúdos</h1>
-        <button id="add-movie" class="btn-add">Novo Filme</button>
+   <div class="admin-container">
+    <h1>Gestão de Conteúdos</h1>
+    
+    <section class="admin-card">
+        <form id="form-adicionar" class="admin-form">
+            <input type="hidden" id="edit-id">
+            <div class="admin-form-group">
+                <input type="text" id="titulo" placeholder="Título do Filme" required>
+                <input type="text" id="genero" placeholder="Género" required>
+                <input type="text" id="ano" placeholder="Ano (Ex: 2024)" maxlength="4" required>
+                <input type="url" id="imagem" placeholder="URL da Imagem" required>
+                <button type="submit" class="btn-primary">Adicionar Filme</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="admin-card">
         <table class="admin-table">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Capa</th>
                     <th>Título</th>
                     <th>Género</th>
                     <th>Ano</th>
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody id="admin-table-body">
-                <!-- JS preenche aqui -->
-            </tbody>
+            <tbody id="tabela-conteudos"></tbody>
         </table>
-    </div>
+    </section>
+</div>
+
     <script src="js/storage.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/dados.js"></script>
 </body>
 </html>

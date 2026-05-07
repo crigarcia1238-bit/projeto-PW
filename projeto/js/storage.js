@@ -24,6 +24,7 @@ class StorageManager {
     static login() {
         localStorage.setItem('userLogado', 'true');
     }
+    
 
     static logout() {
         localStorage.clear(); // Limpa tudo ao sair
@@ -40,6 +41,20 @@ class StorageManager {
 
     static isLogado() {
         return localStorage.getItem('userLogado') === 'true';
+    }
+}
+
+class Auth {
+    static verificarAcesso() {
+        if (localStorage.getItem('userLogado') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    }
+
+    static logout() {
+        localStorage.removeItem('userLogado');
+        localStorage.removeItem('perfilAtivo');
+        window.location.href = 'index.html';
     }
 }
 

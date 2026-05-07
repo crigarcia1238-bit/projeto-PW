@@ -6,7 +6,7 @@ class Categoria {
     }
 }
 
-// Classe para Conteúdos (Filmes/Séries)
+// Classe para Conteúdos 
 class Conteudo {
     constructor(id, titulo, descricao, genero, ano, classificacao, imagemUrl) {
         this.id = id;
