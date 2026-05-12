@@ -379,3 +379,87 @@ body, html {
     justify-content: center;
     gap: 15px;
 }
+
+/* --- RESPONSIVIDADE--- */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .nav-links {
+        gap: 10px;
+        font-size: 0.8rem;
+    }
+
+
+    .admin-form-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-form-group input {
+        width: 100%;
+    }
+
+    .modal-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .modal-body img {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+
+    .auth-box {
+        min-width: 90%;
+        padding: 30px 20px;
+    }
+
+    .profiles-grid {
+        gap: 15px;
+        flex-wrap: wrap; 
+    }
+
+    .avatar-box {
+        width: 100px;
+        height: 100px;
+    }
+
+   
+    .admin-card {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        min-width: 600px;
+    }
+}
+
+/* Para Telemoveis */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    .movie-card {
+        min-width: 160px;
+        height: 100px;
+    }
+
+    .row h2 {
+        font-size: 1rem;
+    }
+}
