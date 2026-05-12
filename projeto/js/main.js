@@ -21,28 +21,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderizarPerfis() {
-        const grid = document.getElementById('perfis-grid');
-        grid.innerHTML = "";
-        const perfis = ['João', 'Ana', 'Rui', 'Kids'];
+    const grid = document.getElementById('perfis-grid');
+    grid.innerHTML = "";
+    
+    
+    const perfis = [
+        { nome: 'João', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png' },
+        { nome: 'Ana', img: 'https://ih0.redbubble.net/image.618427277.3222/flat,1000x1000,075,f.u2.jpg' },
+        { nome: 'Rui', img: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png' },
+        { nome: 'Kids', img: 'https://static.vecteezy.com/system/resources/thumbnails/007/380/516/small/colorful-kids-logo-children-logo-designs-template-design-element-for-logo-poster-card-banner-emblem-t-shirt-illustration-vector.jpg' }
+    ];
 
-        perfis.forEach(nome => {
-            const item = document.createElement('div');
-            item.className = 'profile-item';
-            
-            const avatar = document.createElement('div');
-            avatar.className = 'avatar-box';
+    perfis.forEach(perfil => {
+        const item = document.createElement('div');
+        item.className = 'profile-item';
+        
+        const avatar = document.createElement('div');
+        avatar.className = 'avatar-box';
+        
+        // Aplicar a imagem ao fundo do quadrado
+        avatar.style.backgroundImage = `url('${perfil.img}')`;
+        avatar.style.backgroundSize = 'cover';
+        avatar.style.backgroundPosition = 'center';
 
-            const label = document.createElement('span');
-            label.textContent = nome;
+        const label = document.createElement('span');
+        label.textContent = perfil.nome;
 
-            item.appendChild(avatar);
-            item.appendChild(label);
+        item.appendChild(avatar);
+        item.appendChild(label);
 
-            item.onclick = () => {
-                localStorage.setItem('perfilAtivo', nome);
-                window.location.href = 'catalogo.html';
-            };
-            grid.appendChild(item);
-        });
-    }
+        item.onclick = () => {
+         localStorage.setItem('perfilAtivo', perfil.nome);
+        localStorage.setItem('fotoAtiva', perfil.img); 
+        window.location.href = 'catalogo.html';
+        };
+        grid.appendChild(item);
+    });
+}
 });

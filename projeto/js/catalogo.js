@@ -15,12 +15,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnLogout) btnLogout.onclick = () => Auth.logout();
 
     function renderizarTudo() {
-        document.getElementById('nome-perfil').textContent = perfilAtivo;
-        
-        // Renderiza a lista global de filmes
-        renderizarLinha('conteudos', 'lista-populares');
-        // Renderiza apenas os favoritos DESTE perfil
-        renderizarLinha(CHAVE_FAVORITOS, 'lista-favoritos');
+        const perfilAtivo = localStorage.getItem('perfilAtivo');
+        const fotoAtiva = localStorage.getItem('fotoAtiva');
+
+        const txtNome = document.getElementById('nome-perfil');
+        const imgPerfil = document.getElementById('foto-perfil');
+
+        if (txtNome) txtNome.textContent = perfilAtivo;
+        if (imgPerfil && fotoAtiva) {
+        imgPerfil.src = fotoAtiva;
+        }
+    
+    renderizarLinha('conteudos', 'lista-populares');
+    renderizarLinha(`${perfilAtivo}_favoritos`, 'lista-favoritos');
     }
 
     function renderizarLinha(chave, containerId) {

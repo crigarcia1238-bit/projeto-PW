@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESTFlix - Catálogo</title>
-    <!-- Certifica-te que o styles.css está na mesma pasta que este ficheiro -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,9 +16,11 @@
                 <li><button id="btn-logout" class="btn-logout-link">Sair</button></li>
             </ul>
             <div class="user-display">
-                <span id="nome-perfil"></span>
-                <div class="user-avatar-small" style="width:30px; height:30px; background:#555; border-radius:3px;"></div>
+            <span id="nome-perfil"></span>
+            <div class="user-avatar-small" style="width:30px; height:30px; background:#555; border-radius:3px; overflow:hidden;">
+        <img id="foto-perfil" src="" alt="Perfil" style="width:30px; height:30px; object-fit:cover;">   
             </div>
+        </div>
         </nav>
     </header>
 
