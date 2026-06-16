@@ -42,17 +42,57 @@ document.addEventListener("DOMContentLoaded", () => {
         if (txtNome) txtNome.textContent = perfilAtivo;
         if (imgPerfil && fotoAtiva) imgPerfil.src = fotoAtiva;
 
+        // Procurar dados do Servidor
         const conteudos = await buscarConteudos();
         favoritos = await buscarFavoritos();
         const historico = await buscarHistorico();
 
+        // Renderizar as linhas principais do topo
         renderizarLinha(conteudos, "lista-populares", false);
         renderizarLinha(historico, "lista-historico", false);
         renderizarLinha(favoritos, "lista-favoritos", true);
+
+        // GERAÇÃO DINÂMICA DAS LINHAS DE GÉNERO
+        const containerCategorias = document.getElementById("categorias-dinamicas");
+        containerCategorias.textContent = ""; // Limpa para não duplicar
+
+        // Extrair todos os géneros únicos que têm pelo menos um filme
+        const generosExistentes = [...new Set(conteudos.map(filme => filme.genero))];
+
+        // Criar uma linha para cada género encontrado
+        generosExistentes.forEach(genero => {
+            if (!genero) return; // Salta se o género estiver em branco
+
+            // Filtrar apenas os filmes que pertencem a este género
+            const filmesDoGenero = conteudos.filter(filme => filme.genero === genero);
+
+            // Criar a estrutura da Linha (<section class="row">)
+            const seccao = document.createElement("section");
+            seccao.className = "row";
+
+            const tituloSeccao = document.createElement("h2");
+            // Deixa a primeira letra maiúscula (ex: "drama" passa a "Drama")
+            tituloSeccao.textContent = genero.charAt(0).toUpperCase() + genero.slice(1);
+
+            const rowFilmes = document.createElement("div");
+            rowFilmes.className = "movie-row";
+            // Geramos um ID único para este container de género
+            const containerId = `genero-${genero.replace(/\s+/g, '-')}`; 
+            rowFilmes.id = containerId;
+
+            // Juntar tudo e colocar no ecrã
+            seccao.appendChild(tituloSeccao);
+            seccao.appendChild(rowFilmes);
+            containerCategorias.appendChild(seccao);
+
+            // Chamar a função existente para desenhar os filmes dentro desta nova linha
+            renderizarLinha(filmesDoGenero, containerId, false);
+        });
     }
 
     function renderizarLinha(filmes, containerId, isFavoritos) {
         const container = document.getElementById(containerId);
+        if (!container) return;
         container.textContent = "";
 
         if (filmes.length === 0 && isFavoritos) {
@@ -63,6 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
             container.appendChild(p);
             return;
         }
+
+        // Se a linha não for de favoritos e estiver vazia, não renderiza nada
+        if (filmes.length === 0) return;
 
         filmes.forEach((filme) => {
             const card = document.createElement("div");

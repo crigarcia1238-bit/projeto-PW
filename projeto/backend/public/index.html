@@ -12,7 +12,6 @@
         <div class="login-container">
             <div class="logo">EST<span>Flix</span></div>
             
-            <!--Login -->
             <div id="login-box" class="auth-box">
                 <h1>Entrar</h1>
                 <form id="form-login">
@@ -20,9 +19,24 @@
                     <input type="password" id="login-pass" placeholder="Password" required>
                     <button type="submit" class="btn-primary">Entrar</button>
                 </form>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #94a3b8;">
+                    Sem conta? <a href="#" id="link-ir-registo" style="color: #10b981; text-decoration: none; font-weight: bold;">Crie uma conta.</a>
+                </p>
             </div>
 
-            <!--Perfis -->
+            <div id="registo-box" class="auth-box hidden">
+                <h1>Criar Conta</h1>
+                <form id="form-registo">
+                    <input type="text" id="registo-nome" placeholder="Nome" required>
+                    <input type="email" id="registo-email" placeholder="Email" required>
+                    <input type="password" id="registo-pass" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Registar</button>
+                </form>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #94a3b8;">
+                    Já tem conta? <a href="#" id="link-ir-login" style="color: #10b981; text-decoration: none; font-weight: bold;">Entre agora.</a>
+                </p>
+            </div>
+
             <div id="perfil-box" class="auth-box hidden">
                 <h1>Escolha o seu Perfil</h1>
                 <div id="perfis-grid" class="profiles-grid"></div>
