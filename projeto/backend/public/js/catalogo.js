@@ -1,4 +1,4 @@
-Auth.verificarAcesso();
+Auth.verificarAcesso(); // Bloqueia o acesso se nao houver login realizado
 
 document.addEventListener("DOMContentLoaded", () => {
     const API_CONTEUDOS = "/api/conteudos";
@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return await resposta.json();
     }
 
+    // Carrega e desenha todas as seccoes e dados no ecrã do catalogo
     async function renderizarTudo() {
         const perfilAtivo = localStorage.getItem("perfilAtivo");
         const fotoAtiva = localStorage.getItem("fotoAtiva");
@@ -42,54 +43,48 @@ document.addEventListener("DOMContentLoaded", () => {
         if (txtNome) txtNome.textContent = perfilAtivo;
         if (imgPerfil && fotoAtiva) imgPerfil.src = fotoAtiva;
 
-        // Procurar dados do Servidor
         const conteudos = await buscarConteudos();
         favoritos = await buscarFavoritos();
         const historico = await buscarHistorico();
 
-        // Renderizar as linhas principais do topo
+        // Renderiza as tres linhas base superiores
         renderizarLinha(conteudos, "lista-populares", false);
         renderizarLinha(historico, "lista-historico", false);
         renderizarLinha(favoritos, "lista-favoritos", true);
 
         // GERAÇÃO DINÂMICA DAS LINHAS DE GÉNERO
         const containerCategorias = document.getElementById("categorias-dinamicas");
-        containerCategorias.textContent = ""; // Limpa para não duplicar
+        containerCategorias.textContent = ""; 
 
-        // Extrair todos os géneros únicos que têm pelo menos um filme
+        // Cria uma lista com os generos sem repeticoes
         const generosExistentes = [...new Set(conteudos.map(filme => filme.genero))];
 
-        // Criar uma linha para cada género encontrado
+        // Cria uma seccao HTML automatica para cada genero encontrado
         generosExistentes.forEach(genero => {
-            if (!genero) return; // Salta se o género estiver em branco
+            if (!genero) return; 
 
-            // Filtrar apenas os filmes que pertencem a este género
             const filmesDoGenero = conteudos.filter(filme => filme.genero === genero);
 
-            // Criar a estrutura da Linha (<section class="row">)
             const seccao = document.createElement("section");
             seccao.className = "row";
 
             const tituloSeccao = document.createElement("h2");
-            // Deixa a primeira letra maiúscula (ex: "drama" passa a "Drama")
             tituloSeccao.textContent = genero.charAt(0).toUpperCase() + genero.slice(1);
 
             const rowFilmes = document.createElement("div");
             rowFilmes.className = "movie-row";
-            // Geramos um ID único para este container de género
             const containerId = `genero-${genero.replace(/\s+/g, '-')}`; 
             rowFilmes.id = containerId;
 
-            // Juntar tudo e colocar no ecrã
             seccao.appendChild(tituloSeccao);
             seccao.appendChild(rowFilmes);
             containerCategorias.appendChild(seccao);
 
-            // Chamar a função existente para desenhar os filmes dentro desta nova linha
             renderizarLinha(filmesDoGenero, containerId, false);
         });
     }
 
+    // Desenha os cartoes de filmes no respetivo sitio
     function renderizarLinha(filmes, containerId, isFavoritos) {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -104,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Se a linha não for de favoritos e estiver vazia, não renderiza nada
         if (filmes.length === 0) return;
 
         filmes.forEach((filme) => {
@@ -121,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.appendChild(span);
             card.appendChild(overlay);
 
+            // Abre a modal com detalhes e manda para o historico ao clicar
             card.onclick = async () => {
                 filmeSelecionado = filme;
 
@@ -153,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Gere a adicao ou remocao de favoritos dentro da Modal
     btnFavorito.onclick = async () => {
         if (!filmeSelecionado) return;
 

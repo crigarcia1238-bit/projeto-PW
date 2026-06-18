@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const linkIrRegisto = document.getElementById("link-ir-registo");
     const linkIrLogin = document.getElementById("link-ir-login");
 
+    // Verifica se ja esta autenticado para saltar o login
     if (localStorage.getItem("userLogado") === "true") {
         loginBox.classList.add("hidden");
         perfilBox.classList.remove("hidden");
         renderizarPerfis();
     }
 
+    // Alterna para o ecra de criar conta
     if (linkIrRegisto) {
         linkIrRegisto.onclick = (e) => {
             e.preventDefault();
@@ -23,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
+    // Alterna para o ecra de entrar
     if (linkIrLogin) {
         linkIrLogin.onclick = (e) => {
             e.preventDefault();
@@ -31,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
+    // Envio do formulario de Login
     if (form) {
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -51,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            // Guarda as flags da sessao do utilizador
             localStorage.setItem("userLogado", "true");
             localStorage.setItem("utilizadorId", dados.utilizador.id);
             localStorage.setItem("utilizadorNome", dados.utilizador.nome);
@@ -61,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Envio do formulario de Registo
     if (formRegisto) {
         formRegisto.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -89,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Mostra apenas os perfis da conta iniciada
     async function renderizarPerfis() {
         const grid = document.getElementById("perfis-grid");
         grid.textContent = "";
@@ -115,13 +122,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const label = document.createElement("span");
             label.textContent = perfil.nome;
 
+            // Botao para apagar o perfil
             const btnApagar = document.createElement("button");
             btnApagar.className = "btn-delete-profile";
             btnApagar.innerText = "X";
             btnApagar.title = "Apagar Perfil";
 
             btnApagar.onclick = async (e) => {
-                e.stopPropagation();
+                e.stopPropagation(); 
                 
                 const confirmar = confirm(`Tens a certeza que queres apagar o perfil "${perfil.nome}"?`);
                 if (!confirmar) return;
@@ -143,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
             item.appendChild(avatar);
             item.appendChild(label); 
             
+            // Entra no catalogo com o perfil escolhido
             item.onclick = () => {
                 localStorage.setItem("perfilId", perfil.id);
                 localStorage.setItem("perfilAtivo", perfil.nome);
@@ -154,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Criacao de um novo perfil (valida o maximo de 5)
     if (btnNovoPerfil) {
         btnNovoPerfil.onclick = async () => {
             const utilizadorId = localStorage.getItem("utilizadorId");

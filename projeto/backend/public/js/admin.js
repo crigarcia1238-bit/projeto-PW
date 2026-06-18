@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("form-adicionar");
     const tabela = document.getElementById("tabela-conteudos");
 
+    // Procura a lista de filmes no servidor
     async function buscarConteudos() {
         const resposta = await fetch(API_URL);
         return await resposta.json();
     }
 
+    // Desenha as linhas da tabela de gestao no ecrã
     async function atualizarTabela() {
         tabela.textContent = "";
 
@@ -37,11 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const tdAcoes = document.createElement("td");
 
+            // Botao para editar o filme selecionado
             const btnEditar = document.createElement("button");
             btnEditar.textContent = "Editar";
             btnEditar.className = "btn-edit";
             btnEditar.onclick = () => carregarFormularioEdicao(filme);
 
+            // Botao para apagar o filme selecionado
             const btnApagar = document.createElement("button");
             btnApagar.textContent = "Apagar";
             btnApagar.className = "btn-delete";
@@ -59,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Envia os dados do formulario para Criar ou Atualizar um filme
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -74,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         if (id) {
+            // Se tem ID, atualiza
             await fetch(`${API_URL}/${id}`, {
                 method: "PUT",
                 headers: {
@@ -82,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify(filme)
             });
         } else {
+            // Se nao tem, cria um novo
             await fetch(API_URL, {
                 method: "POST",
                 headers: {
@@ -96,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarTabela();
     });
 
+    // Poe os dados do filme nos campos do formulario para alterar
     function carregarFormularioEdicao(filme) {
         document.getElementById("titulo").value = filme.titulo;
         document.getElementById("genero").value = filme.genero;

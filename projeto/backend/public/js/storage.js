@@ -1,3 +1,4 @@
+// Utilitario de leitura/escrita JSON no LocalStorage
 class GerenciadorDados {
     static getDados(chave) {
         return JSON.parse(localStorage.getItem(chave)) || [];
@@ -13,21 +14,22 @@ class GerenciadorDados {
             alert("Erro: Já existe um conteúdo com este título.");
             return false;
         }
-        novoConteudo.id = Date.now(); // Geração de ID automático
+        novoConteudo.id = Date.now(); 
         conteudos.push(novoConteudo);
         this.salvarDados('conteudos', conteudos);
         return true;
     }
     
 }
+
+// Gestao local de informacoes de sessao e perfis ativos
 class StorageManager {
     static login() {
         localStorage.setItem('userLogado', 'true');
     }
     
-
     static logout() {
-        localStorage.clear(); // Limpa tudo ao sair
+        localStorage.clear(); 
         window.location.href = 'index.html';
     }
 
@@ -44,6 +46,7 @@ class StorageManager {
     }
 }
 
+// Validacao e controlo de acessos a paginas restritas
 class Auth {
     static verificarAcesso() {
         if (localStorage.getItem('userLogado') !== 'true') {
